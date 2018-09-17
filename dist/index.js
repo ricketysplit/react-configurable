@@ -4,9 +4,21 @@ var _react = _interopRequireWildcard(require("react"));
 
 var _propTypes = _interopRequireDefault(require("prop-types"));
 
+var _get = _interopRequireDefault(require("lodash/get"));
+
+var _isArray = _interopRequireDefault(require("lodash/isArray"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
+
+function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -26,6 +38,27 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
+var ConfigContext = {};
+
+function getValue(path) {
+  return (0, _get.default)(this.object, path);
+}
+
+function setConfig(config) {
+  this.config = config;
+}
+
+function ConfigService(options) {
+  this.options = options;
+}
+
+ConfigService.prototype.getValue = getValue;
+ConfigService.prototype.setConfig = setConfig;
+
+function createConfig(config, options) {
+  ConfigContext = _react.default.createContext(config);
+}
+
 var ConfigProvider =
 /*#__PURE__*/
 function (_Component) {
@@ -37,7 +70,10 @@ function (_Component) {
     _classCallCheck(this, ConfigProvider);
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(ConfigProvider).call(this));
-    console.log('this is being constructed');
+    var _this$props = _this.props,
+        config = _this$props.config,
+        options = _this$props.options;
+    createConfig(config, options);
     return _this;
   }
 
@@ -45,14 +81,32 @@ function (_Component) {
     key: "render",
     value: function render() {
       var children = this.props.children;
-      return _react.default.createElement(_react.default.Fragment, null, children);
+      return _react.default.createElement(ConfigContext.Provider, null, children);
     }
   }]);
 
   return ConfigProvider;
 }(_react.Component);
 
+ConfigProvider.defaultProps = {
+  options: {}
+};
 ConfigProvider.propTypes = {
+  children: _propTypes.default.arrayOf(_propTypes.default.objectOf).isRequired,
+  config: _propTypes.default.objectOf.isRequired,
+  options: _propTypes.default.objectOf
+};
+
+var ConfigHide = function ConfigHide(_ref) {
+  var children = _ref.children,
+      props = _objectWithoutProperties(_ref, ["children"]);
+
+  return _react.default.createElement(ConfigContext.Consumer, null, ((0, _isArray.default)(children) ? children : [children]).map(function (child) {
+    return _react.default.cloneElement(child, _objectSpread({}, props));
+  }));
+};
+
+ConfigHide.propTypes = {
   children: _propTypes.default.arrayOf(_propTypes.default.objectOf).isRequired
 };
 /**
