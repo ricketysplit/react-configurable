@@ -23,11 +23,13 @@
     "react-dom": "^16.4.2"
   },
   "devDependencies": {
-    "@babel/core": "^7.0.0",
+    "@babel/cli": "^7.0.0",
+    "@babel/core": "^7.0.1",
     "@babel/preset-env": "^7.0.0",
     "@babel/preset-react": "^7.0.0",
-    "babel-eslint": "^9.0.0",
-    "eslint": "^5.4.0",
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-jest": "^23.6.0",
+    "eslint": "^5.6.0",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-config-prettier": "^3.0.1",
     "eslint-plugin-import": "^2.14.0",
@@ -36,21 +38,7 @@
     "eslint-plugin-prettier": "^2.6.2",
     "eslint-plugin-react": "^7.11.1",
     "jest": "^23.6.0",
-    "prettier": "^1.14.2"
-  },
-  "babel": {
-    "presets": [
-      [
-        "env",
-        {
-          "targets": {
-            "node": "current"
-          }
-        }
-      ]
-    ],
-    "plugins": [
-      "transform-object-rest-spread"
-    ]
+    "prettier": "^1.14.2",
+    "regenerator-runtime": "^0.12.1"
   }
 }
