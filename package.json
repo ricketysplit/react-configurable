@@ -1,0 +1,56 @@
+{
+  "name": "react-configurable",
+  "version": "0.1.0",
+  "description": "Provide config to props easily and efficiently",
+  "main": "index.js",
+  "scripts": {
+    "build": "babel lib --out-dir dist",
+    "lint": "eslint --fix lib",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ricketysplit/react-configurable.git"
+  },
+  "author": "Ricky Harkins",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ricketysplit/react-configurable/issues"
+  },
+  "homepage": "https://github.com/ricketysplit/react-configurable#readme",
+  "dependencies": {
+    "react": "^16.4.2",
+    "react-dom": "^16.4.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.0.0",
+    "@babel/preset-env": "^7.0.0",
+    "@babel/preset-react": "^7.0.0",
+    "babel-eslint": "^9.0.0",
+    "eslint": "^5.4.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-config-prettier": "^3.0.1",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jest": "^21.22.0",
+    "eslint-plugin-jsx-a11y": "^6.1.1",
+    "eslint-plugin-prettier": "^2.6.2",
+    "eslint-plugin-react": "^7.11.1",
+    "jest": "^23.6.0",
+    "prettier": "^1.14.2"
+  },
+  "babel": {
+    "presets": [
+      [
+        "env",
+        {
+          "targets": {
+            "node": "current"
+          }
+        }
+      ]
+    ],
+    "plugins": [
+      "transform-object-rest-spread"
+    ]
+  }
+}
