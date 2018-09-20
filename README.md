@@ -1,6 +1,11 @@
 # React-Configurable
 
+`react-configurable` uses `React.Context` to allow easy access and use of application wide config values.
+
 ## Installation
+```
+npm install react-configurable --save
+```
 react-configurable requires React > 16
 
 ## Examples
