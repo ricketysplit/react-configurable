@@ -5,6 +5,8 @@ react-configurable requires React > 16
 
 ## Examples
 
+### ConfigProvider
+
 Usage requires the application to be wrapped in a `ConfigProvider` component
 
 ```jsx
@@ -30,6 +32,8 @@ class ConfigExample extends React.Component {
 ReactDOM.render(<ConfigExample />, document.getElementById('container'));
 ```
 
+### ConfigEnhancer
+
 Once the application is wrapper in `ConfigProvider`, values can be passed through `ConfigEnhancer` using prop keys
 
 ```jsx
@@ -50,4 +54,27 @@ const Example = ({mockValue}) => <div>{mockValue}</div>;
 
 // Pass values to Example through ConfigEnhancer
 export default <ConfigEnhancer mockValue="nested.mockNestedValue"><Example /></ConfigEnhancer>
+```
+
+### ConfigHide / ConfigShow
+
+Also provided are simple approaches to showing and hiding components based on config
+
+```jsx
+import {ConfigHide} from 'react-configurable';
+
+export default <ConfigHide mockHide><div>Should be hidden</div></ConfigHide>
+```
+
+If `mockHide` in the config is true, then the component is hidden.
+
+One difference from `ConfigEnhancer` is that if an actual value is passed into a prop, it is used for an equality check instead of passing the value;
+
+So in the following example, `react-configurable` will compare the config value of `mockHide` to the value passed into `ConfigHide`
+
+```jsx
+import {ConfigHide} from 'react-configurable';
+
+// This will only be hidden if the config value of mockHide equals false
+export default <ConfigHide mockHide={false}><div>Should be hidden</div></ConfigHide>
 ```
